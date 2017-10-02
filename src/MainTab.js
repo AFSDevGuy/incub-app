@@ -5,8 +5,9 @@
     import { Tab, Tabs } from 'react-bootstrap';
 */
 import React from 'react';
-import {Tab, Tabs, ListGroup, ListGroupItem} from 'react-bootstrap';
-import InitPersons from './InitPersons';
+import {Row, Col, Nav, NavItem, Tab,
+    MenuItem, NavDropdown, Panel} from 'react-bootstrap';
+import PersonList from './PersonList';
 
 class MainTab extends React.Component {
     constructor(props) {
@@ -22,32 +23,61 @@ class MainTab extends React.Component {
 
     render() {
         return (
-            <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect}>
-                <Tab eventKey={1} title="Missing">
-                    People who were recently active but did not badge out.
-                    <ListGroup>
-
-                        <ListGroupItem>Price, Tom</ListGroupItem>
-                        <ListGroupItem>Khan, Asad</ListGroupItem>
-                    </ListGroup>
-                </Tab>
-                <Tab eventKey={2} title="Evacuated">
-                    People who badged out properly after the alert (recently).
-                    <ListGroup>
-                        <ListGroupItem>Price, Tom</ListGroupItem>
-                        <ListGroupItem>Khan, Asad</ListGroupItem>
-                    </ListGroup>
-                </Tab>
-                <Tab eventKey={3} title="Verified">
-                    As people are found, they are moved to this list
-                    <ListGroup>
-                        <ListGroupItem>Price, Tom</ListGroupItem>
-                        <ListGroupItem>Khan, Asad</ListGroupItem>
-                    </ListGroup>
-                </Tab>
-                <Tab eventKey={4} title="Actions" disabled>Actions</Tab>
-                <Tab eventKey={5} title="Settings">Settings</Tab>
-            </Tabs>
+            <Tab.Container id="tabs-with-dropdown" defaultActiveKey="missing">
+                <Row className="clearfix">
+                    <Col sm={12}>
+                        <Nav bsStyle="tabs" >
+                            <NavItem eventKey="missing">
+                                Missing
+                            </NavItem>
+                            <NavItem eventKey="evacuated">
+                                Evacuated
+                            </NavItem>
+                            <NavItem eventKey="verified">
+                                Verified
+                            </NavItem>
+                            <NavDropdown eventKey="actions" title="Actions">
+                                <MenuItem eventKey="actions.1">Action</MenuItem>
+                                <MenuItem eventKey="actions.2">Another action</MenuItem>
+                                <MenuItem eventKey="actions.3">Something else here</MenuItem>
+                                <MenuItem divider />
+                                <MenuItem eventKey="actions.4">Separated link</MenuItem>
+                            </NavDropdown>
+                        </Nav>
+                    </Col>
+                    <Col sm={12}>
+                        <Tab.Content animation>
+                            <Tab.Pane eventKey="missing">
+                                <Panel header="People who were recently active but did not badge out">
+                                    <PersonList group='missing'/>
+                                </Panel>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="evacuated">
+                                <Panel header="People who badged out properly after the alert (recently)">
+                                    <PersonList group='badgedout'/>
+                                </Panel>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="verified">
+                                <Panel header="As people are found, they are moved to this list">
+                                    <PersonList group='verified'/>
+                                </Panel>
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="actions.1">
+                                Action Content
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="actions.2">
+                                Another Action Content
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="actions.3">
+                                Something else here content
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="actions.4">
+                                Separated link content
+                            </Tab.Pane>
+                        </Tab.Content>
+                    </Col>
+                </Row>
+            </Tab.Container>
         );
     }
 

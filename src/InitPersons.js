@@ -3,6 +3,7 @@
  * handle/list in the app
  */
 class InitPersons {
+    persons = null;
     constructor() {
         const names=[
             {number:1,firstname:'Michael',mi:'Y',lastname:'Moore',email:'MichaelYMoore@cuvox.de',phone:'305-342-2936'},
@@ -1018,10 +1019,10 @@ class InitPersons {
                 personMap.verified.push(item);
             }
         });
-        this.state.persons = personMap;
+        this.persons= personMap;
     }
     getPersons(){
-        return this.state.persons;
+        return this.persons;
     }
 }
 
