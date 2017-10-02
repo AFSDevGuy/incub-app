@@ -21,7 +21,7 @@ class PersonList extends React.Component {
         return (
             <ListGroup style={{height:'100%'}} >
                 {this.state.persons.map(function(listValue){
-                    return <ListGroupItem>{listValue.lastname}, {listValue.firstname}</ListGroupItem>;
+                    return <ListGroupItem key={listValue.number}>{listValue.lastname}, {listValue.firstname} <i className="fa fa-check" aria-hidden="true"></i></ListGroupItem>;
                 })}
             </ListGroup>
         )

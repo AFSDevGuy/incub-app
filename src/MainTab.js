@@ -24,7 +24,7 @@ class MainTab extends React.Component {
     render() {
         return (
             <Tab.Container id="tabs-with-dropdown" defaultActiveKey="missing">
-                <Row className="clearfix">
+                <Row className=".clearfix">
                     <Col sm={12}>
                         <Nav bsStyle="tabs" >
                             <NavItem eventKey="missing">
@@ -76,7 +76,7 @@ class MainTab extends React.Component {
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
-                </Row>
+               </Row>
             </Tab.Container>
         );
     }
