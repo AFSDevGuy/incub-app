@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Button,Row,Col,ListGroup, ListGroupItem} from 'react-bootstrap';
 
 import InitPersons from './InitPersons';
 
@@ -14,14 +14,40 @@ class PersonList extends React.Component {
             activeTab: props.activeTab || 1,
             persons: InitPersons.getPersons()[this.personGroup]
         };
-
     }
 
     render() {
         return (
             <ListGroup style={{height:'100%'}} >
                 {this.state.persons.map(function(listValue){
-                    return <ListGroupItem key={listValue.number}>{listValue.lastname}, {listValue.firstname} <i className="fa fa-check" aria-hidden="true"></i></ListGroupItem>;
+                    return (
+                        <ListGroupItem key={listValue.number}>
+                            <Row>
+                                <Col xs={6}>
+                                    <button type="button" className="btn btn-lg btn-block" data-toggle="collapse" data-target={"#detail"+listValue.number}>
+                                        {listValue.lastname}, {listValue.firstname}
+                                    </button>
+                                    <div id={"#detail"+listValue.number} className="collapse">
+                                        {/* TODO: replace with modal dialog */}
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </div>
+                                </Col>
+                                {/* TODO: show only the buttons that are appropriate for this particular group */}
+                                <Col xs={3}>
+                                    <Button bsStyle="success" bsSize="large" block>
+                                        <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                    </Button>
+                                </Col>
+                                <Col xs={3}>
+                                    <Button bsStyle="danger" bsSize="large" block>
+                                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </ListGroupItem>
+                    )
                 })}
             </ListGroup>
         )
