@@ -1,25 +1,25 @@
 import React from 'react';
 import {Button,Row,Col,ListGroup, ListGroupItem} from 'react-bootstrap';
-
-import InitPersons from './InitPersons';
+import PersonStore from './PersonStore';
 
 class PersonList extends React.Component {
 
-    personGroup = null
     constructor(props) {
         super();
         this.personGroup = props.group
+        this.personStore = props.store
         this.state = {
             // Takes active tab from props if it is defined there
             activeTab: props.activeTab || 1,
-            persons: InitPersons.getPersons()[this.personGroup]
+            persons: this.personStore.getItems(this.personGroup)
         };
     }
 
     render() {
         return (
             <ListGroup style={{height:'100%'}} >
-                {this.state.persons.map(function(listValue){
+                {Object.keys(this.state.persons).map(function(key){
+                    var listValue = this.state.persons[key]
                     return (
                         <ListGroupItem key={listValue.number}>
                             <Row>
@@ -48,7 +48,7 @@ class PersonList extends React.Component {
                             </Row>
                         </ListGroupItem>
                     )
-                })}
+                },this)}
             </ListGroup>
         )
     }

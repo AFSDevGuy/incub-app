@@ -8,15 +8,28 @@ import React from 'react';
 import {Row, Col, Nav, NavItem, Tab,
     MenuItem, NavDropdown, Panel} from 'react-bootstrap';
 import PersonList from './PersonList';
+import PersonStore from './PersonStore';
+import InitPersons from "./InitPersons";
 
 class MainTab extends React.Component {
+
     constructor(props) {
         super();
         this.state = {
             // Takes active tab from props if it is defined there
             activeTab: props.activeTab || 1
         };
+        this.personStore = new PersonStore()
 
+        InitPersons.getNames().forEach(function(item,index,array){
+            if (index <100) {
+                this.personStore.addItem(item['number'],'missing',item);
+            } else if (index < 400) {
+                this.personStore.addItem(item['number'],'badgedout',item);
+            } else if (index < 500) {
+                this.personStore.addItem(item['number'],'verified',item);
+            }
+        }, this);
         // Bind the handleSelect function already here (not in the render function)
         this.handleSelect = this.handleSelect.bind(this);
     }
@@ -49,17 +62,17 @@ class MainTab extends React.Component {
                         <Tab.Content animation>
                             <Tab.Pane eventKey="missing">
                                 <Panel header="People who were recently active but did not badge out">
-                                    <PersonList group='missing'/>
+                                    <PersonList store={this.personStore} group='missing'/>
                                 </Panel>
                             </Tab.Pane>
                             <Tab.Pane eventKey="evacuated">
                                 <Panel header="People who badged out properly after the alert (recently)">
-                                    <PersonList group='badgedout'/>
+                                    <PersonList store={this.personStore} group='badgedout'/>
                                 </Panel>
                             </Tab.Pane>
                             <Tab.Pane eventKey="verified">
                                 <Panel header="As people are found, they are moved to this list">
-                                    <PersonList group='verified'/>
+                                    <PersonList store={this.personStore} group='verified'/>
                                 </Panel>
                             </Tab.Pane>
                             <Tab.Pane eventKey="actions.1">
