@@ -22,11 +22,11 @@ class MainTab extends React.Component {
         this.personStore = new PersonStore()
 
         InitPersons.getNames().forEach(function(item,index,array){
-            if (index <100) {
+            if (index <10) {
                 this.personStore.addItem(item['number'],'missing',item);
-            } else if (index < 400) {
+            } else if (index < 20) {
                 this.personStore.addItem(item['number'],'badgedout',item);
-            } else if (index < 500) {
+            } else if (index < 30) {
                 this.personStore.addItem(item['number'],'verified',item);
             }
         }, this);

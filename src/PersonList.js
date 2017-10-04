@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button,Row,Col,ListGroup, ListGroupItem} from 'react-bootstrap';
-import PersonStore from './PersonStore';
+import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import PersonEntry from './PersonEntry'
 
 class PersonList extends React.Component {
 
@@ -22,30 +22,7 @@ class PersonList extends React.Component {
                     var listValue = this.state.persons[key]
                     return (
                         <ListGroupItem key={listValue.number}>
-                            <Row>
-                                <Col xs={6}>
-                                    <button type="button" className="btn btn-lg btn-block" data-toggle="collapse" data-target={"#detail"+listValue.number}>
-                                        {listValue.lastname}, {listValue.firstname}
-                                    </button>
-                                    <div id={"#detail"+listValue.number} className="collapse">
-                                        {/* TODO: replace with modal dialog */}
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                    </div>
-                                </Col>
-                                {/* TODO: show only the buttons that are appropriate for this particular group */}
-                                <Col xs={3}>
-                                    <Button bsStyle="success" bsSize="large" block>
-                                        <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                    </Button>
-                                </Col>
-                                <Col xs={3}>
-                                    <Button bsStyle="danger" bsSize="large" block>
-                                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                    </Button>
-                                </Col>
-                            </Row>
+                            <PersonEntry person={listValue} group={this.personGroup} store={this.personStore}/>
                         </ListGroupItem>
                     )
                 },this)}

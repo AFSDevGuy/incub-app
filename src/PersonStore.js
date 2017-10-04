@@ -6,6 +6,7 @@
 class PersonStore {
     listeners = {}
     items = {}
+
     addListener (itemType, listener){
         if (!this.listeners[itemType]){
             this.listeners[itemType] = [listener]
