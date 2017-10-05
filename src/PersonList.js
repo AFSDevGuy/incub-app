@@ -13,6 +13,7 @@ class PersonList extends React.Component {
             activeTab: props.activeTab || 1,
             persons: this.personStore.getItems(this.personGroup)
         };
+        this.personStore.addListener(this.personGroup,this)
     }
 
     render() {

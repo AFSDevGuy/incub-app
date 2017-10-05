@@ -9,8 +9,39 @@ class PersonEntry extends React.Component {
             group: props.group,
             personStore: props.store
         }
+        this.movePersonToMissing = this.movePersonToMissing.bind(this)
+        this.movePersonToBadgedout = this.movePersonToBadgedout.bind(this)
+        this.movePersonToVerified = this.movePersonToVerified.bind(this)
     }
+
+    movePersonToMissing() {
+        this.state.personStore.moveItem(this.state.person.number,this.state.group,'missing')
+    }
+    movePersonToBadgedout() {
+        this.state.personStore.moveItem(this.state.person.number,this.state.group,'badgedout')
+    }
+    movePersonToVerified() {
+        this.state.personStore.moveItem(this.state.person.number,this.state.group,'verified')
+    }
+
     render() {
+        var firstButtonBlock = <div>&nbsp;</div>;
+        if (this.state.group !== 'verified') {
+            firstButtonBlock =
+                <Button bsStyle="success" bsSize="large" block onClick={this.movePersonToVerified}>
+                    <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </Button> ;
+        }
+        var secondButtonBlock =
+            <Button bsStyle="danger" bsSize="large" block onClick={this.movePersonToMissing}>
+                <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </Button>
+        if (this.state.group === 'missing') {
+            secondButtonBlock =
+                <Button bsStyle="warning" bsSize="large" block>
+                    <span className="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+                </Button>
+        }
         return (
             <Row>
                 <Col xs={6}>
@@ -26,14 +57,10 @@ class PersonEntry extends React.Component {
                 </Col>
                 {/* TODO: show only the buttons that are appropriate for this particular group */}
                 <Col xs={3}>
-                    <Button bsStyle="success" bsSize="large" block>
-                        <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    </Button>
+                    {firstButtonBlock}
                 </Col>
                 <Col xs={3}>
-                    <Button bsStyle="danger" bsSize="large" block>
-                        <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </Button>
+                    {secondButtonBlock}
                 </Col>
             </Row>
 

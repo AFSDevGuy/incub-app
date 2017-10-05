@@ -1,6 +1,10 @@
 /*
  * This object serves as a backing data store. It implements a listener system so that listeners can have their state
  * updated whenever their group of items changes
+ * TODO: sync withna backend and across devices
+ * https://blog.yld.io/2015/11/30/building-realtime-collaborative-offline-first-apps-with-react-redux-pouchdb-and-web-sockets/
+ * https://github.com/markerikson/redux-ecosystem-links/blob/master/store.md
+ * https://medium.com/@MaartenSikkema/using-react-redux-and-webpack-with-dotnet-core-to-build-a-modern-web-frontend-7e2d091b3ba
  */
 
 class PersonStore {
@@ -11,7 +15,7 @@ class PersonStore {
         if (!this.listeners[itemType]){
             this.listeners[itemType] = [listener]
         } else {
-            this.listeners.itemType.push(listener)
+            this.listeners[itemType].push(listener)
         }
     }
 
@@ -32,10 +36,10 @@ class PersonStore {
 
     notifyListeners(type) {
         if(this.listeners[type]){
-            this.listeners.type.map(function(listener){
+            this.listeners[type].map(function(listener){
                 listener.setState({items: this.items[type]})
                 return listener
-            })
+            },this)
         }
     }
 
